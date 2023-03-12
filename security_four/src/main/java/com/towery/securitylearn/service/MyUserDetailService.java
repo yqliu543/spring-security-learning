@@ -26,13 +26,13 @@ public class MyUserDetailService implements UserDetailsService {
     private SysRoleMapper sysRoleMapper;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        SysUser sysUser = sysUserMapper.selectOne(new LambdaQueryWrapper<SysUser>().eq(SysUser::getUsername, username));
+        SysUser sysUser = sysUserMapper.selectByName(username);
         if (sysUser!=null){
             List<SysRole> rolelists = sysRoleMapper.selectRoleByUser(sysUser.getId());
-            ArrayList<GrantedAuthority> list = new ArrayList<>();
+            List<GrantedAuthority> list = new ArrayList<>();
             for (SysRole role:rolelists) {
                 String rolename = role.getRolename();
-                SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_"+rolename);
+                GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_"+rolename);
                 list.add(authority);
             }
             sysUser.setAuthorities(list);

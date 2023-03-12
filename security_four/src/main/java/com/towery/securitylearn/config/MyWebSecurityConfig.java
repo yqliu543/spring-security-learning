@@ -19,7 +19,7 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("MyUserDetailService")
     private UserDetailsService userDetailsService;
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        super.configure(auth);
+//        super.configure(auth);
         auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
@@ -28,9 +28,9 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        super.configure(http);
         http.authorizeRequests()
                 .antMatchers("/index").permitAll()
-                .antMatchers("/access/user").hasRole("USER")
-                .antMatchers("/access/admin").hasRole("ADMIN")
-                .antMatchers("/access/read").hasRole("READ")
+                .antMatchers("/access/user/**").hasRole("USER")
+                .antMatchers("/access/admin/**").hasRole("ADMIN")
+                .antMatchers("/access/read/**").hasRole("READ")
                 .anyRequest().authenticated()
                 .and().formLogin();
     }

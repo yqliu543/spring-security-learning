@@ -7,7 +7,7 @@
         <result column="rolename" property="rolename"/>
         <result column="rolememo" property="rolememo"/>
     </resultMap>
-    <select id="selectRoleByUser">
+    <select id="selectRoleByUser" resultMap="rolemapper">
         select r.id, r.rolename, r.rolememo
         from sys_user_role ur,
              sys_role r
