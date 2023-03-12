@@ -21,7 +21,7 @@ public class MyUserDetailService implements UserDetailsService {
     private UserInfoMapper userInfoMapper;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserInfo userinfo=null;
+        UserInfo userinfo;
         User user=null;
         if (username != null) {
             userinfo=userInfoMapper.selectOne(new LambdaQueryWrapper<UserInfo>().eq(UserInfo::getUsername,username));
@@ -30,8 +30,6 @@ public class MyUserDetailService implements UserDetailsService {
             list.add(authority);
             user = new User(userinfo.getUsername(),userinfo.getPassword(),list);
         }
-
-
         return user;
     }
 }
