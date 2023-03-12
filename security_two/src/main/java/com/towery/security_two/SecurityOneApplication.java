@@ -1,4 +1,4 @@
-package com.towery.security_one;
+package com.towery.security_two;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
