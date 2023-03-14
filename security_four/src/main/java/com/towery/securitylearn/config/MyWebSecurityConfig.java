@@ -27,11 +27,19 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 //        super.configure(http);
         http.authorizeRequests()
-                .antMatchers("/index").permitAll()
+                .antMatchers("/index","/mylogin.html","/login","/error.html").permitAll()
                 .antMatchers("/access/user/**").hasRole("USER")
                 .antMatchers("/access/admin/**").hasRole("ADMIN")
                 .antMatchers("/access/read/**").hasRole("READ")
                 .anyRequest().authenticated()
-                .and().formLogin();
+                .and()
+                .formLogin()
+                .loginPage("/mylogin.html")
+                .loginProcessingUrl("/login")
+                .failureUrl("/error.html")
+                .and()
+                .csrf()
+                .disable();
+
     }
 }
